@@ -21,7 +21,7 @@ class SEMG(nn.Module):
 
     def forward(self, x):
         batch_size = x.size(0)
-        x = x.view(batch_size, 8, 188)  # batch_size * 8 * 186
+        x = x.view(batch_size, 8, 188)  # batch_size * 8 * 188
         x = self.relu(self.conv1_1(x))  # batch_size * 64 * 186
         x = self.relu(self.conv1_2(x))  # batch_size * 64 * 184
         x = self.pooling(x)  # batch_size * 64 * 61

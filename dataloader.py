@@ -7,7 +7,7 @@ from math import sqrt
 def normalize(x, ave=-1.0979379441417457e-05, var=4.726647396007718e-08):
     return (x - ave) / sqrt(var)
 
-def load_data(csv_dir, window_len=188, offset=20):
+def load_data(csv_dir, window_len=188, offset=20, select_participant=None):
     count = 0
     samples = []
     labels = []
@@ -18,9 +18,12 @@ def load_data(csv_dir, window_len=188, offset=20):
             continue
 
         # Reading CSV files
-        print(f"Reading {csv_file}... ", end='')
+        reading = f"Reading {csv_file}..."
+        print(f"{reading:25}", end='')
         gesture = eval(csv_file[: csv_file.find('_')])
         participant = eval(csv_file[csv_file.find('_') + 1: csv_file.find('.')])
+        if select_participant is not None and select_participant != participant:
+            continue
 
         with open(csv_dir + '/' + csv_file, 'r') as file:
             reader = csv.reader(file)
